@@ -8,13 +8,13 @@ class QuestionModel {
   final String question;
 
   @HiveField(1)
-  final String correctAnswer;
+  final List<String> answers;
 
   @HiveField(2)
-  final List<String> incorrectAnswers;
+  final int correctAnswerIndex;
 
   QuestionModel(
       {required this.question,
-      required this.correctAnswer,
-      required this.incorrectAnswers});
+      required this.answers,
+      required this.correctAnswerIndex});
 }

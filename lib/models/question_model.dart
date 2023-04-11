@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:quiz_app/models/question.dart';
 
 part 'question_model.g.dart';
 
@@ -17,4 +18,12 @@ class QuestionModel {
       {required this.question,
       required this.answers,
       required this.correctAnswerIndex});
+
+  Question toQuestion() {
+    return Question(
+      question: question,
+      answers: answers,
+      correctAnswerIndex: correctAnswerIndex,
+    );
+  }
 }

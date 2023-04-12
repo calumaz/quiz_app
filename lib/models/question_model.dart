@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:quiz_app/models/question.dart';
 
 part 'question_model.g.dart';
 
@@ -19,11 +18,12 @@ class QuestionModel {
       required this.answers,
       required this.correctAnswerIndex});
 
-  Question toQuestion() {
-    return Question(
-      question: question,
-      answers: answers,
-      correctAnswerIndex: correctAnswerIndex,
-    );
+  factory QuestionModel.fromJson(Map<String, dynamic> json) {
+    return QuestionModel(
+        question: json['question'] as String,
+        answers: (json['answers'] as List)
+            .map((answer) => answer as String)
+            .toList(),
+        correctAnswerIndex: json['correctAnswerIndex'] as int);
   }
 }

@@ -1,71 +1,64 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:quiz_app/hive_init.dart';
 import 'package:quiz_app/models/question_model.dart';
-import 'package:riverpod/riverpod.dart';
-
-import 'models/question.dart';
+import 'package:quiz_app/pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await HiveInit.init();
-  await Hive.openBox<QuestionModel>('questionBox');
-  runApp(MainApp());
+  await Hive.openBox<QuestionModel>('fourAQuestionBox');
+  await Hive.openBox<QuestionModel>('fourBQuestionBox');
+  await Hive.openBox<String>('versionBox');
+  final mainApp = MainApp();
+  await mainApp.checkAndUpdateDatabase();
+  runApp(mainApp);
 }
 
 class MainApp extends StatelessWidget {
   MainApp({super.key});
-
-  final Box<QuestionModel> questionBox = Hive.box<QuestionModel>('questionBox');
+  final Box<String> versionBox = Hive.box<String>('versionBox');
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: SafeArea(
-          child: Center(
-              child: FutureBuilder(
-            future: getAllQuestions(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasData) {
-                List<QuestionModel> questions = snapshot.data!;
-                return ListView.builder(
-                    itemCount: questions.length,
-                    itemBuilder: (context, index) {
-                      QuestionModel question = questions[index];
-                      return ListTile(
-                        title: Text(question.question),
-                        subtitle: Text(question.answers.join(', ')),
-                        trailing: Text(
-                            'Correct answer index: ${question.correctAnswerIndex}'),
-                      );
-                    });
-              } else if (snapshot.hasError) {
-                return const Center(child: Text('Error loading data'));
-              } else {
-                return const Center(child: Text('No data found'));
-              }
-            },
-          )),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            await questionBox.add(QuestionModel(
-              question: 'What is the capital of Italy?',
-              answers: ['Rome', 'Milan', 'Naples', 'Turin'],
-              correctAnswerIndex: 0,
-            ));
-          },
-          child: const Icon(Icons.add),
-        ),
-      ),
-    );
+    return const MaterialApp(home: HomePage());
   }
 
-  Future<List<QuestionModel>> getAllQuestions() async {
-    List<QuestionModel> questions = questionBox.values.toList();
-    return questions;
+  Future<void> checkAndUpdateDatabase() async {
+    // get the version number from the db
+    String? version;
+    final packageInfo = await PackageInfo.fromPlatform();
+    version = packageInfo.version;
+    final Box<QuestionModel> fourAQuestionBox =
+        Hive.box<QuestionModel>('fourAQuestionBox');
+    final Box<QuestionModel> fourBQuestionBox =
+        Hive.box<QuestionModel>('fourBQuestionBox');
+
+    String? hiveVersion = versionBox.get('version');
+
+    Future<void> updateDataBase() async {
+      await fourAQuestionBox.clear();
+      await fourBQuestionBox.clear();
+
+      final jsonString = await rootBundle.loadString('assets/4A.json');
+      final List<dynamic> jsonData = jsonDecode(jsonString);
+
+      jsonData.forEach((questionData) {
+        fourAQuestionBox.add(QuestionModel.fromJson(questionData));
+      });
+
+      await versionBox.put('version', version!);
+    }
+
+    if (hiveVersion == null || hiveVersion != version) {
+      await updateDataBase();
+    }
+
+    fourAQuestionBox.close();
+    fourBQuestionBox.close();
   }
 }

@@ -20,19 +20,22 @@ class QuestionModelAdapter extends TypeAdapter<QuestionModel> {
       question: fields[0] as String,
       answers: (fields[1] as List).cast<String>(),
       correctAnswerIndex: fields[2] as int,
+      category: fields[3] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, QuestionModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.question)
       ..writeByte(1)
       ..write(obj.answers)
       ..writeByte(2)
-      ..write(obj.correctAnswerIndex);
+      ..write(obj.correctAnswerIndex)
+      ..writeByte(3)
+      ..write(obj.category);
   }
 
   @override

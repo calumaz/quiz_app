@@ -25,7 +25,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomePage());
+    return const MaterialApp(
+      home: HomePage(),
+      debugShowCheckedModeBanner: false,
+    );
   }
 
   Future<void> checkAndUpdateDatabase() async {
@@ -44,11 +47,20 @@ class MainApp extends StatelessWidget {
       await fourAQuestionBox.clear();
       await fourBQuestionBox.clear();
 
-      final jsonString = await rootBundle.loadString('assets/4A.json');
-      final List<dynamic> jsonData = jsonDecode(jsonString);
+      //TODO: Refactor.
+
+      var jsonString = await rootBundle.loadString('assets/test_banks/4A.json');
+      List<dynamic> jsonData = jsonDecode(jsonString);
 
       jsonData.forEach((questionData) {
         fourAQuestionBox.add(QuestionModel.fromJson(questionData));
+      });
+
+      jsonString = await rootBundle.loadString('assets/test_banks/4B.json');
+      jsonData = jsonDecode(jsonString);
+
+      jsonData.forEach((questionData) {
+        fourBQuestionBox.add(QuestionModel.fromJson(questionData));
       });
 
       await versionBox.put('version', version!);

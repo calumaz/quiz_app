@@ -13,10 +13,14 @@ class QuestionModel {
   @HiveField(2)
   final int correctAnswerIndex;
 
+  @HiveField(3)
+  final String? category;
+
   QuestionModel(
       {required this.question,
       required this.answers,
-      required this.correctAnswerIndex});
+      required this.correctAnswerIndex,
+      this.category});
 
   factory QuestionModel.fromJson(Map<String, dynamic> json) {
     return QuestionModel(
@@ -24,6 +28,7 @@ class QuestionModel {
         answers: (json['answers'] as List)
             .map((answer) => answer as String)
             .toList(),
-        correctAnswerIndex: json['correctAnswerIndex'] as int);
+        correctAnswerIndex: json['correctAnswerIndex'] as int,
+        category: json['category'] as String);
   }
 }

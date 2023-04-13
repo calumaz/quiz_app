@@ -29,6 +29,6 @@ class QuestionModel {
             .map((answer) => answer as String)
             .toList(),
         correctAnswerIndex: json['correctAnswerIndex'] as int,
-        category: json['category'] as String);
+        category: json['category'] as String?);
   }
 }

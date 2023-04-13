@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/pages/question_settings_page.dart';
 import 'test_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -31,6 +32,15 @@ class HomePage extends StatelessWidget {
                               const TestPage(boxName: 'fourBQuestionBox')));
                 },
                 child: const Text('4B questions')),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const QuestionSettingsPage(
+                              boxName: 'fourAQuestionBox')));
+                },
+                child: const Text('Question settings page'))
           ]))),
     );
   }

@@ -57,33 +57,3 @@ class _TestPageState extends State<TestPage> {
     );
   }
 }
-
-
-
-
-// child: FutureBuilder<void>(
-//         future: _boxInitialization,
-//         builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-//           if (snapshot.connectionState == ConnectionState.waiting) {
-//             return const Center(child: CircularProgressIndicator());
-//           } else if (snapshot.connectionState == ConnectionState.done) {
-//             List<QuestionModel> questions = _questionBox.values.toList();
-//             return ListView.builder(
-//               itemCount: questions.length,
-//               itemBuilder: (context, index) {
-//                 QuestionModel question = questions[index];
-//                 return ListTile(
-//                   title: Text(question.question),
-//                   subtitle: Text(question.answers.join(', ')),
-//                   trailing: Text(
-//                       'Correct answer index: ${question.correctAnswerIndex}'),
-//                   leading: Text(index.toString()),
-//                 );
-//               },
-//             );
-//           } else if (snapshot.hasError) {
-//             return const Center(child: Text('Error loading data'));
-//           } else {
-//             return const Center(child: Text('No data found'));
-//           }
-//         }

@@ -47,7 +47,7 @@ class MainApp extends StatelessWidget {
       await fourAQuestionBox.clear();
       await fourBQuestionBox.clear();
 
-      //TODO: Refactor.
+      // TODO: Refactor.
 
       var jsonString = await rootBundle.loadString('assets/test_banks/4A.json');
       List<dynamic> jsonData = jsonDecode(jsonString);

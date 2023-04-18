@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:quiz_app/hive_init.dart';
 import 'package:quiz_app/models/question_model.dart';
@@ -11,12 +11,10 @@ import 'package:quiz_app/pages/home_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await HiveInit.init();
-  await Hive.openBox<QuestionModel>('fourAQuestionBox');
-  await Hive.openBox<QuestionModel>('fourBQuestionBox');
   await Hive.openBox<String>('versionBox');
   final mainApp = MainApp();
   await mainApp.checkAndUpdateDatabase();
-  runApp(mainApp);
+  runApp(ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -25,9 +23,17 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePage(),
+    return MaterialApp(
+      home: const HomePage(),
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.red),
+                  foregroundColor: MaterialStateProperty.all(Colors.white))),
+          checkboxTheme: CheckboxThemeData(
+              fillColor: MaterialStateProperty.all(Colors.yellow))),
+      darkTheme: ThemeData.dark(),
     );
   }
 
@@ -36,6 +42,8 @@ class MainApp extends StatelessWidget {
     String? version;
     final packageInfo = await PackageInfo.fromPlatform();
     version = packageInfo.version;
+    await Hive.openBox<QuestionModel>('fourAQuestionBox');
+    await Hive.openBox<QuestionModel>('fourBQuestionBox');
     final Box<QuestionModel> fourAQuestionBox =
         Hive.box<QuestionModel>('fourAQuestionBox');
     final Box<QuestionModel> fourBQuestionBox =
@@ -70,7 +78,6 @@ class MainApp extends StatelessWidget {
       await updateDataBase();
     }
 
-    fourAQuestionBox.close();
-    fourBQuestionBox.close();
+    Hive.close();
   }
 }

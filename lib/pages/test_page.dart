@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:quiz_app/models/question.dart';
+import 'package:quiz_app/pages/question_settings_page.dart';
 import 'package:quiz_app/widgets/question_view.dart';
 import '../models/question_model.dart';
 
 class TestPage extends StatefulWidget {
   final String boxName;
+  final QuestionSettings? questionSettings;
 
-  const TestPage({super.key, required this.boxName});
+  const TestPage({super.key, required this.boxName, this.questionSettings});
 
   @override
   State<TestPage> createState() => _TestPageState();
@@ -16,11 +18,19 @@ class TestPage extends StatefulWidget {
 class _TestPageState extends State<TestPage> {
   late Box<QuestionModel> _questionBox;
   late Future<void> _boxInitialization;
+  late List<QuestionModel> _questions;
 
   @override
   void initState() {
     Future<void> initBox() async {
       _questionBox = await Hive.openBox<QuestionModel>(widget.boxName);
+      if (widget.questionSettings == null) {
+        _questions = _questionBox.values.toList();
+      } else {
+        _questions = _questionBox.values
+            .take(widget.questionSettings!.questionCount)
+            .toList();
+      }
     }
 
     super.initState();
@@ -29,7 +39,6 @@ class _TestPageState extends State<TestPage> {
 
   @override
   void dispose() async {
-    _questionBox.close();
     super.dispose();
   }
 
@@ -42,15 +51,14 @@ class _TestPageState extends State<TestPage> {
             builder: ((context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.connectionState == ConnectionState.done) {
-                List<QuestionModel> questions = _questionBox.values.toList();
+              } else if (snapshot.connectionState == ConnectionState.done) { 
                 return PageView.builder(
-                    itemCount: questions.length,
+                    itemCount: _questions.length,
                     itemBuilder: (context, index) {
-                      return QuestionView(question: questions[index]);
+                      return QuestionView(question: _questions[index]);
                     });
               } else {
-                return const Center(child: Text('Failed to load PageViews'));
+                return const Center(child: Text('Failed to load PageViews.'));
               }
             })),
       ),

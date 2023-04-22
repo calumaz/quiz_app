@@ -10,6 +10,8 @@ import 'package:quiz_app/pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await HiveInit.init();
   await Hive.openBox<String>('versionBox');
   final mainApp = MainApp();
@@ -24,17 +26,31 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const HomePage(),
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.red),
-                  foregroundColor: MaterialStateProperty.all(Colors.white))),
-          checkboxTheme: CheckboxThemeData(
-              fillColor: MaterialStateProperty.all(Colors.yellow))),
-      darkTheme: ThemeData.dark(),
-    );
+        home: const HomePage(),
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.lime),
+                    foregroundColor: MaterialStateProperty.all(Colors.white),
+                    shape: MaterialStateProperty.all(const ContinuousRectangleBorder(
+                        borderRadius: BorderRadius.zero)))),
+            checkboxTheme: CheckboxThemeData(
+                fillColor: MaterialStateProperty.all(Colors.yellow)),
+            cardTheme: const CardTheme(
+                color: Colors.lime,
+                shape: ContinuousRectangleBorder(
+                    borderRadius: BorderRadius.zero))),
+        darkTheme: ThemeData.dark().copyWith(
+            elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.lime),
+                    foregroundColor: MaterialStateProperty.all(Colors.white),
+                    shape: MaterialStateProperty.all(
+                        const ContinuousRectangleBorder(
+                            borderRadius: BorderRadius.zero)))),
+            checkboxTheme: CheckboxThemeData(fillColor: MaterialStateProperty.all(Colors.yellow)),
+            cardTheme: const CardTheme(color: Colors.lime, shape: ContinuousRectangleBorder(borderRadius: BorderRadius.zero))));
   }
 
   Future<void> checkAndUpdateDatabase() async {

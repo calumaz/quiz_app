@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:quiz_app/models/question.dart';
 import 'package:quiz_app/pages/question_settings_page.dart';
+import 'package:quiz_app/riverpod/question_settings_controller.dart';
 import 'package:quiz_app/widgets/question_view.dart';
 import '../models/question_model.dart';
 
 class TestPage extends StatefulWidget {
   final String boxName;
-  final QuestionSettings? questionSettings;
+  final QuestionSettingsState? questionSettings;
 
   const TestPage({super.key, required this.boxName, this.questionSettings});
 

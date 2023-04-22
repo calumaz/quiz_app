@@ -29,6 +29,7 @@ class MainApp extends StatelessWidget {
         home: const HomePage(),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+            scaffoldBackgroundColor: Colors.grey[100],
             elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.lime),

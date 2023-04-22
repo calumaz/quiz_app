@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:quiz_app/models/question_model.dart';
 import 'package:quiz_app/pages/question_settings_page.dart';
+import 'package:quiz_app/pages/settings_page.dart';
 import 'test_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -25,22 +26,34 @@ class HomePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
                       Text(
-                        'TSSA',
+                        'Power\nEngineer',
                         style: TextStyle(
                             fontSize: 52,
                             fontFamily: 'neue-machina',
                             fontWeight: FontWeight.w900),
                       ),
                       Text(
-                        'Exam bank',
+                        'Exam repo',
                         style:
                             TextStyle(fontSize: 48, fontFamily: 'neue-machina'),
                       )
                     ],
                   ),
-                  const Icon(
-                    Icons.settings,
-                    size: 32,
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SettingsPage()));
+                    },
+                    borderRadius: BorderRadius.circular(5),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.settings,
+                        size: 32,
+                      ),
+                    ),
                   )
                 ],
               ),
@@ -53,7 +66,8 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => QuestionSettingsPage()));
+                              builder: (context) => const QuestionSettingsPage(
+                                  databaseName: '4A')));
                     },
                     title: const Text(
                       '4A exam preperation',
@@ -83,11 +97,18 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   const Divider(),
-                  const ListTile(
-                    title: Text('4B exam questions',
+                  ListTile(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const QuestionSettingsPage(
+                                  databaseName: '4B')));
+                    },
+                    title: const Text('4B exam questions',
                         style: TextStyle(fontFamily: 'neue-machina')),
-                    subtitle: Text('2000 questions'),
-                    leading: SizedBox(
+                    subtitle: const Text('2000 questions'),
+                    leading: const SizedBox(
                       height: 50,
                       width: 75,
                       child: Card(
@@ -108,11 +129,18 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   const Divider(),
-                  const ListTile(
-                    title: Text('3A1 exam questions',
+                  ListTile(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const QuestionSettingsPage(
+                                  databaseName: '3A1')));
+                    },
+                    title: const Text('3A1 exam questions',
                         style: TextStyle(fontFamily: 'neue-machina')),
-                    subtitle: Text('2000 questions'),
-                    leading: SizedBox(
+                    subtitle: const Text('2000 questions'),
+                    leading: const SizedBox(
                       height: 50,
                       width: 75,
                       child: Card(
@@ -133,11 +161,18 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   const Divider(),
-                  const ListTile(
-                    title: Text('3A1 exam questions',
+                  ListTile(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const QuestionSettingsPage(
+                                  databaseName: '3A2')));
+                    },
+                    title: const Text('3A2 exam questions',
                         style: TextStyle(fontFamily: 'neue-machina')),
-                    subtitle: Text('2000 questions'),
-                    leading: SizedBox(
+                    subtitle: const Text('2000 questions'),
+                    leading: const SizedBox(
                       height: 50,
                       width: 75,
                       child: Card(
@@ -145,7 +180,7 @@ class HomePage extends StatelessWidget {
                           padding: EdgeInsets.all(8.0),
                           child: Center(
                             child: Text(
-                              '3A1',
+                              '3A2',
                               style: TextStyle(
                                   fontFamily: 'maison-neue-mono',
                                   fontSize: 24,
@@ -158,11 +193,18 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   const Divider(),
-                  const ListTile(
-                    title: Text('3A1 exam questions',
+                  ListTile(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const QuestionSettingsPage(
+                                  databaseName: '3B1')));
+                    },
+                    title: const Text('3B1 exam questions',
                         style: TextStyle(fontFamily: 'neue-machina')),
-                    subtitle: Text('2000 questions'),
-                    leading: SizedBox(
+                    subtitle: const Text('2000 questions'),
+                    leading: const SizedBox(
                       height: 50,
                       width: 75,
                       child: Card(
@@ -170,7 +212,7 @@ class HomePage extends StatelessWidget {
                           padding: EdgeInsets.all(8.0),
                           child: Center(
                             child: Text(
-                              '3A1',
+                              '3B1',
                               style: TextStyle(
                                   fontFamily: 'maison-neue-mono',
                                   fontSize: 24,
@@ -183,11 +225,18 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   const Divider(),
-                  const ListTile(
-                    title: Text('3A1 exam questions',
+                  ListTile(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const QuestionSettingsPage(
+                                  databaseName: '3B2')));
+                    },
+                    title: const Text('3B2 exam questions',
                         style: TextStyle(fontFamily: 'neue-machina')),
-                    subtitle: Text('2000 questions'),
-                    leading: SizedBox(
+                    subtitle: const Text('2000 questions'),
+                    leading: const SizedBox(
                       height: 50,
                       width: 75,
                       child: Card(
@@ -195,7 +244,7 @@ class HomePage extends StatelessWidget {
                           padding: EdgeInsets.all(8.0),
                           child: Center(
                             child: Text(
-                              '3A1',
+                              '3B2',
                               style: TextStyle(
                                   fontFamily: 'maison-neue-mono',
                                   fontSize: 24,

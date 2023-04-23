@@ -3,7 +3,6 @@ import 'package:hive/hive.dart';
 import 'package:quiz_app/models/question_model.dart';
 import 'package:quiz_app/pages/question_settings_page.dart';
 import 'package:quiz_app/pages/settings_page.dart';
-import 'test_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -17,7 +16,7 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 32),
+              padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,12 +65,13 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const QuestionSettingsPage(
-                                  databaseName: '4A')));
+                              builder: (context) => QuestionSettingsPage(
+                                  pageTitle: '4A',
+                                  databaseName: 'fourAQuestionBox')));
                     },
                     title: const Text(
                       '4A exam preperation',
-                      style: TextStyle(fontFamily: 'neue-machina'),
+                      style: TextStyle(fontFamily: 'maison-neue-mono'),
                     ),
                     subtitle: const Text(
                       '2000 questions',
@@ -102,11 +102,12 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const QuestionSettingsPage(
-                                  databaseName: '4B')));
+                              builder: (context) => QuestionSettingsPage(
+                                  pageTitle: '4B',
+                                  databaseName: 'fourAQuestionBox')));
                     },
                     title: const Text('4B exam questions',
-                        style: TextStyle(fontFamily: 'neue-machina')),
+                        style: TextStyle(fontFamily: 'maison-neue-mono')),
                     subtitle: const Text('2000 questions'),
                     leading: const SizedBox(
                       height: 50,
@@ -134,11 +135,12 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const QuestionSettingsPage(
+                              builder: (context) => QuestionSettingsPage(
+                                  pageTitle: '3A1',
                                   databaseName: '3A1')));
                     },
                     title: const Text('3A1 exam questions',
-                        style: TextStyle(fontFamily: 'neue-machina')),
+                        style: TextStyle(fontFamily: 'maison-neue-mono')),
                     subtitle: const Text('2000 questions'),
                     leading: const SizedBox(
                       height: 50,
@@ -166,11 +168,12 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const QuestionSettingsPage(
+                              builder: (context) => QuestionSettingsPage(
+                                  pageTitle: '3A2',
                                   databaseName: '3A2')));
                     },
                     title: const Text('3A2 exam questions',
-                        style: TextStyle(fontFamily: 'neue-machina')),
+                        style: TextStyle(fontFamily: 'maison-neue-mono')),
                     subtitle: const Text('2000 questions'),
                     leading: const SizedBox(
                       height: 50,
@@ -198,11 +201,12 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const QuestionSettingsPage(
+                              builder: (context) => QuestionSettingsPage(
+                                  pageTitle: '3B1',
                                   databaseName: '3B1')));
                     },
                     title: const Text('3B1 exam questions',
-                        style: TextStyle(fontFamily: 'neue-machina')),
+                        style: TextStyle(fontFamily: 'maison-neue-mono')),
                     subtitle: const Text('2000 questions'),
                     leading: const SizedBox(
                       height: 50,
@@ -230,11 +234,12 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const QuestionSettingsPage(
+                              builder: (context) => QuestionSettingsPage(
+                                  pageTitle: '3B2',
                                   databaseName: '3B2')));
                     },
                     title: const Text('3B2 exam questions',
-                        style: TextStyle(fontFamily: 'neue-machina')),
+                        style: TextStyle(fontFamily: 'maison-neue-mono')),
                     subtitle: const Text('2000 questions'),
                     leading: const SizedBox(
                       height: 50,
@@ -267,23 +272,24 @@ class HomePage extends StatelessWidget {
                   child: ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all(Colors.grey)),
+                              MaterialStateProperty.all(
+                              const Color.fromARGB(255, 81, 81, 81))),
                       onPressed: () {},
                       child: const Text(
                         'Book an exam online',
                         style: TextStyle(
-                            fontFamily: 'neue-machina',
+                            fontFamily: 'maison-neue-mono',
                             fontWeight: FontWeight.w900,
-                            color: Colors.black),
+                            color: Colors.white),
                       )),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                   child: ElevatedButton(
                       onPressed: () {},
-                      child: const Text('View previous exam results',
+                      child: const Text('View previous results',
                           style: TextStyle(
-                              fontFamily: 'neue-machina',
+                              fontFamily: 'maison-neue-mono',
                               fontWeight: FontWeight.w900,
                               color: Colors.black))),
                 )

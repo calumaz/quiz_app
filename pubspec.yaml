@@ -33,6 +33,8 @@ flutter:
     - family: neue-machina
       fonts:
         - asset: fonts/NeueMachina-Regular.otf
+        - asset: fonts/NeueMachina-Light.otf
+          weight: 400
         - asset: fonts/NeueMachina-Ultrabold.otf
           weight: 900
     - family: maison-neue-mono

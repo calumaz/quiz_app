@@ -51,7 +51,8 @@ class MainApp extends StatelessWidget {
                         const ContinuousRectangleBorder(
                             borderRadius: BorderRadius.zero)))),
             checkboxTheme: CheckboxThemeData(fillColor: MaterialStateProperty.all(Colors.yellow)),
-            cardTheme: const CardTheme(color: Colors.lime, shape: ContinuousRectangleBorder(borderRadius: BorderRadius.zero))));
+            cardTheme: const CardTheme(color: Colors.lime, shape: ContinuousRectangleBorder(borderRadius: BorderRadius.zero)),
+            sliderTheme: SliderThemeData(activeTrackColor: Colors.lime, inactiveTrackColor: Colors.grey, thumbColor: Colors.limeAccent, overlayColor: Colors.lime)));
   }
 
   Future<void> checkAndUpdateDatabase() async {
